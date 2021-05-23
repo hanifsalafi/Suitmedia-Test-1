@@ -15,6 +15,17 @@
 		FA99061B265A2DB0003E9196 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA990619265A2DB0003E9196 /* LaunchScreen.storyboard */; };
 		FA990626265A2DB1003E9196 /* SuitmediaTestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA990625265A2DB1003E9196 /* SuitmediaTestTests.swift */; };
 		FA990631265A2DB1003E9196 /* SuitmediaTestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA990630265A2DB1003E9196 /* SuitmediaTestUITests.swift */; };
+		FA990644265A5F19003E9196 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA990643265A5F19003E9196 /* WelcomeViewController.swift */; };
+		FA990647265A665C003E9196 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA990646265A665C003E9196 /* Extension.swift */; };
+		FA990649265A6D57003E9196 /* FormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA990648265A6D57003E9196 /* FormViewController.swift */; };
+		FA99064B265A7AF3003E9196 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA99064A265A7AF3003E9196 /* HomeViewController.swift */; };
+		FA99064E265AC711003E9196 /* EventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA99064D265AC710003E9196 /* EventViewController.swift */; };
+		FA990650265AC768003E9196 /* EventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA99064F265AC768003E9196 /* EventTableViewCell.swift */; };
+		FA990652265AE8D7003E9196 /* GuestCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA990651265AE8D7003E9196 /* GuestCollectionViewCell.swift */; };
+		FA990654265AE925003E9196 /* GuestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA990653265AE925003E9196 /* GuestViewController.swift */; };
+		FA990656265AEA80003E9196 /* GuestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA990655265AEA80003E9196 /* GuestModel.swift */; };
+		FA990658265AEAE6003E9196 /* GuestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA990657265AEAE6003E9196 /* GuestViewModel.swift */; };
+		FA99065B265AEBD7003E9196 /* ServiceAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA99065A265AEBD7003E9196 /* ServiceAPI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +60,17 @@
 		FA99062C265A2DB1003E9196 /* SuitmediaTestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SuitmediaTestUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA990630265A2DB1003E9196 /* SuitmediaTestUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuitmediaTestUITests.swift; sourceTree = "<group>"; };
 		FA990632265A2DB1003E9196 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FA990643265A5F19003E9196 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		FA990646265A665C003E9196 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		FA990648265A6D57003E9196 /* FormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormViewController.swift; sourceTree = "<group>"; };
+		FA99064A265A7AF3003E9196 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		FA99064D265AC710003E9196 /* EventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewController.swift; sourceTree = "<group>"; };
+		FA99064F265AC768003E9196 /* EventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTableViewCell.swift; sourceTree = "<group>"; };
+		FA990651265AE8D7003E9196 /* GuestCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestCollectionViewCell.swift; sourceTree = "<group>"; };
+		FA990653265AE925003E9196 /* GuestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestViewController.swift; sourceTree = "<group>"; };
+		FA990655265AEA80003E9196 /* GuestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestModel.swift; sourceTree = "<group>"; };
+		FA990657265AEAE6003E9196 /* GuestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestViewModel.swift; sourceTree = "<group>"; };
+		FA99065A265AEBD7003E9196 /* ServiceAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceAPI.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,10 +121,13 @@
 		FA99060D265A2DAA003E9196 /* SuitmediaTest */ = {
 			isa = PBXGroup;
 			children = (
+				FA990659265AEBBC003E9196 /* Service */,
+				FA990640265A5E3B003E9196 /* ViewModel */,
+				FA99063F265A5E25003E9196 /* View */,
+				FA99063E265A5DF1003E9196 /* Model */,
 				FA99060E265A2DAA003E9196 /* AppDelegate.swift */,
 				FA990610265A2DAA003E9196 /* SceneDelegate.swift */,
 				FA990612265A2DAA003E9196 /* ViewController.swift */,
-				FA990614265A2DAA003E9196 /* Main.storyboard */,
 				FA990617265A2DB0003E9196 /* Assets.xcassets */,
 				FA990619265A2DB0003E9196 /* LaunchScreen.storyboard */,
 				FA99061C265A2DB0003E9196 /* Info.plist */,
@@ -126,6 +151,78 @@
 				FA990632265A2DB1003E9196 /* Info.plist */,
 			);
 			path = SuitmediaTestUITests;
+			sourceTree = "<group>";
+		};
+		FA99063E265A5DF1003E9196 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FA990655265AEA80003E9196 /* GuestModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		FA99063F265A5E25003E9196 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FA99064C265AC6E0003E9196 /* Cell */,
+				FA990645265A663D003E9196 /* Extension */,
+				FA990642265A5E6C003E9196 /* Controller */,
+				FA990641265A5E44003E9196 /* Storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FA990640265A5E3B003E9196 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				FA990657265AEAE6003E9196 /* GuestViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		FA990641265A5E44003E9196 /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				FA990614265A2DAA003E9196 /* Main.storyboard */,
+			);
+			path = Storyboard;
+			sourceTree = "<group>";
+		};
+		FA990642265A5E6C003E9196 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				FA990643265A5F19003E9196 /* WelcomeViewController.swift */,
+				FA990648265A6D57003E9196 /* FormViewController.swift */,
+				FA99064A265A7AF3003E9196 /* HomeViewController.swift */,
+				FA99064D265AC710003E9196 /* EventViewController.swift */,
+				FA990653265AE925003E9196 /* GuestViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		FA990645265A663D003E9196 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				FA990646265A665C003E9196 /* Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		FA99064C265AC6E0003E9196 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				FA99064F265AC768003E9196 /* EventTableViewCell.swift */,
+				FA990651265AE8D7003E9196 /* GuestCollectionViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		FA990659265AEBBC003E9196 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				FA99065A265AEBD7003E9196 /* ServiceAPI.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,9 +356,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA99065B265AEBD7003E9196 /* ServiceAPI.swift in Sources */,
+				FA990650265AC768003E9196 /* EventTableViewCell.swift in Sources */,
+				FA990649265A6D57003E9196 /* FormViewController.swift in Sources */,
+				FA990647265A665C003E9196 /* Extension.swift in Sources */,
 				FA990613265A2DAA003E9196 /* ViewController.swift in Sources */,
+				FA990644265A5F19003E9196 /* WelcomeViewController.swift in Sources */,
 				FA99060F265A2DAA003E9196 /* AppDelegate.swift in Sources */,
+				FA99064E265AC711003E9196 /* EventViewController.swift in Sources */,
+				FA990652265AE8D7003E9196 /* GuestCollectionViewCell.swift in Sources */,
+				FA990658265AEAE6003E9196 /* GuestViewModel.swift in Sources */,
+				FA990656265AEA80003E9196 /* GuestModel.swift in Sources */,
+				FA99064B265A7AF3003E9196 /* HomeViewController.swift in Sources */,
 				FA990611265A2DAA003E9196 /* SceneDelegate.swift in Sources */,
+				FA990654265AE925003E9196 /* GuestViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
