@@ -26,6 +26,7 @@
 		FA990656265AEA80003E9196 /* GuestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA990655265AEA80003E9196 /* GuestModel.swift */; };
 		FA990658265AEAE6003E9196 /* GuestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA990657265AEAE6003E9196 /* GuestViewModel.swift */; };
 		FA99065B265AEBD7003E9196 /* ServiceAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA99065A265AEBD7003E9196 /* ServiceAPI.swift */; };
+		FA990660265B3DDC003E9196 /* EventCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA99065F265B3DDC003E9196 /* EventCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,7 @@
 		FA990655265AEA80003E9196 /* GuestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestModel.swift; sourceTree = "<group>"; };
 		FA990657265AEAE6003E9196 /* GuestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestViewModel.swift; sourceTree = "<group>"; };
 		FA99065A265AEBD7003E9196 /* ServiceAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceAPI.swift; sourceTree = "<group>"; };
+		FA99065F265B3DDC003E9196 /* EventCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -213,6 +215,7 @@
 			children = (
 				FA99064F265AC768003E9196 /* EventTableViewCell.swift */,
 				FA990651265AE8D7003E9196 /* GuestCollectionViewCell.swift */,
+				FA99065F265B3DDC003E9196 /* EventCollectionViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -357,6 +360,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA99065B265AEBD7003E9196 /* ServiceAPI.swift in Sources */,
+				FA990660265B3DDC003E9196 /* EventCollectionViewCell.swift in Sources */,
 				FA990650265AC768003E9196 /* EventTableViewCell.swift in Sources */,
 				FA990649265A6D57003E9196 /* FormViewController.swift in Sources */,
 				FA990647265A665C003E9196 /* Extension.swift in Sources */,
@@ -542,7 +546,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = SNU2CGD9TP;
 				INFOPLIST_FILE = SuitmediaTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -559,7 +565,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = SNU2CGD9TP;
 				INFOPLIST_FILE = SuitmediaTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

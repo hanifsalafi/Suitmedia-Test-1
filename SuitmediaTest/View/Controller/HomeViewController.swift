@@ -8,6 +8,11 @@
 
 import UIKit
 
+enum SelectedButton {
+    case event
+    case guest
+}
+
 class HomeViewController: UIViewController {
  
     @IBOutlet weak var nameLabel: UILabel!
@@ -17,6 +22,7 @@ class HomeViewController: UIViewController {
     var name: String?
     var selectedEvent: Event?
     var selectedGuest: GuestViewModel?
+    var selectedBtn: SelectedButton?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,13 +35,17 @@ class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
-        
-        self.checkGuestPhone()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if (self.selectedBtn == .guest){
+            self.checkGuestPhone()
+        }
     }
     
     // MARK: - Initial Data
@@ -111,7 +121,6 @@ class HomeViewController: UIViewController {
                 showDialogView(image: "other_phone", title: "The Guest's Device is Not Detected")
             }
         }
-        
     }
     
 }
@@ -120,10 +129,12 @@ extension HomeViewController: EventDelegate, GuestDelegate {
     func sendSelectedEvent(event: Event) {
         self.selectedEvent = event 
         self.chooseEventButton.setTitle(event.name, for: .normal)
+        self.selectedBtn = .event
     }
     
     func sendSelectedGuest(guest: GuestViewModel) {
         self.selectedGuest = guest
         self.chooseGuestButton.setTitle(guest.getFullName(), for: .normal)
+        self.selectedBtn = .guest
     }
 }

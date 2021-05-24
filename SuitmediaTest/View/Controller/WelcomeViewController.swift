@@ -18,6 +18,8 @@ class WelcomeViewController: FormViewController {
     
     @IBOutlet weak var contentViewContainer: UIView!
     
+    var palindromeWord: String = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -43,8 +45,10 @@ class WelcomeViewController: FormViewController {
         palindromeTextField.layer.cornerRadius = palindromeTextField.frame.height / 2
         
         nextButton.layer.cornerRadius = nextButton.frame.height / 2
-        
         checkButton.layer.cornerRadius = checkButton.frame.height / 2
+        
+        nextButton.addShadow(offset: CGSize(width: 0, height: 3), radius: CGFloat(4), opacity: Float(1))
+        checkButton.addShadow(offset: CGSize(width: 0, height: 3), radius: CGFloat(4), opacity: Float(1))
         
         contentViewContainer.layer.cornerRadius = 10.0
         contentViewContainer.addShadow(offset: CGSize(width: 0, height: 3), radius: CGFloat(4), opacity: Float(1))
@@ -60,6 +64,10 @@ class WelcomeViewController: FormViewController {
         let nextButtonRecognizer = UITapGestureRecognizer()
         nextButtonRecognizer.addTarget(self, action: #selector(doNext))
         nextButton.addGestureRecognizer(nextButtonRecognizer)
+        
+        let checkButtonRecognizer = UITapGestureRecognizer()
+        checkButtonRecognizer.addTarget(self, action: #selector(doCheck))
+        checkButton.addGestureRecognizer(checkButtonRecognizer)
     }
     
     @objc func didTapView(){
@@ -69,11 +77,51 @@ class WelcomeViewController: FormViewController {
     // MARK: Do Function
     
     @objc func doNext(){
-        let vc = storyboard?.instantiateViewController(identifier: "home") as! HomeViewController
-        vc.modalPresentationStyle = .fullScreen
-        vc.initData(name: nameTextField.text ?? "")
-        self.navigationController?.pushViewController(vc, animated: true)
+        if palindromeTextField.text != "" {
+            if checkPalindrome() {
+                let vc = storyboard?.instantiateViewController(identifier: "home") as! HomeViewController
+                vc.modalPresentationStyle = .fullScreen
+                vc.initData(name: nameTextField.text ?? "")
+                self.navigationController?.pushViewController(vc, animated: true)
+            } else{
+                showAlert(view: self, title: "", message: "Please enter a correct palindrome word.")
+            }
+        } else {
+            showAlert(view: self, title: "", message: "Please enter a palindrome word first.")
+        }
     }
+    
+    @objc func doCheck(){
+        if palindromeTextField.text != "" {
+            if checkPalindrome() {
+                showAlert(view: self, title: "Correct", message: "Your palindrome is correct")
+            } else {
+                showAlert(view: self, title: "Uncorrect", message: "Your palindrome is uncorrect. Try again!")
+            }
+        } else {
+            showAlert(view: self, title: "", message: "Please enter a word palindrome first.")
+        }
+    }
+    
+    func checkPalindrome() -> Bool {
+        let word = palindromeTextField.text!
+        if word.lowercased() == String(word.lowercased().reversed()) {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    func showAlert(view: UIViewController, title: String, message: String){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        alert.addAction(action)
+        
+        view.present(alert, animated: true, completion: nil)
+    }
+    
+    
     
     
 
