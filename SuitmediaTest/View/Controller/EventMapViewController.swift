@@ -13,17 +13,30 @@ class EventMapViewController: UIViewController, CLLocationManagerDelegate, UICol
 
     @IBOutlet weak var eventMapView: MKMapView!
     @IBOutlet weak var eventCollectionView: UICollectionView!
+    @IBOutlet weak var chooseButton: UIButton!
     
     var eventViewController = EventViewController()
     var delegate: EventDelegate?
+    var selectedEvent: Event?
     
     let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setupView()
         setupMapView()
-//        setupCollectionView()
+    }
+    
+    func setupView(){
+        let chooseButtonRecognizer = UITapGestureRecognizer()
+        chooseButtonRecognizer.addTarget(self, action: #selector(chooseEvent))
+        chooseButton.addGestureRecognizer(chooseButtonRecognizer)
+        
+        chooseButton.layer.cornerRadius = chooseButton.frame.height / 2
+        chooseButton.addShadow(offset: CGSize(width: 0, height: 3), radius: CGFloat(4), opacity: Float(1))
+        
+        chooseButton.isHidden = true
     }
     
     func setupMapView(){
@@ -33,13 +46,24 @@ class EventMapViewController: UIViewController, CLLocationManagerDelegate, UICol
         locationManager.startUpdatingLocation()
     }
     
-    // MARK: - Location Manager
+    @objc func chooseEvent(){
+        if let selectedEvent = selectedEvent {
+            // Send data to HomeViewController
+            self.delegate?.sendSelectedEvent(event: selectedEvent)
+
+            // Back to HomeViewController
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
+    
+    // MARK: - Map View Setting
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {
             locationManager.stopUpdatingLocation()
 
             render(location)
+            setupCoordinate()
         }
     }
     
@@ -54,7 +78,24 @@ class EventMapViewController: UIViewController, CLLocationManagerDelegate, UICol
         pin.coordinate = coordinate
         eventMapView.addAnnotation(pin)
     }
-
+    
+    func setupCoordinate(){
+        for event in self.eventViewController.events {
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = CLLocationCoordinate2D(latitude: CLLocationDegrees(event.latitude), longitude: CLLocationDegrees(event.longitude))
+            eventMapView.addAnnotation(annotation)
+        }
+    }
+    
+    func zoomCoordinate(){
+        if let selectedEvent = selectedEvent {
+            var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: CLLocationDegrees(selectedEvent.latitude), longitude: CLLocationDegrees(selectedEvent.longitude)), latitudinalMeters: CLLocationDistance(exactly: 5000)!, longitudinalMeters: CLLocationDistance(exactly: 5000)!)
+            region.span.latitudeDelta = 0.001
+            region.span.longitudeDelta = 0.001
+            eventMapView.setRegion(eventMapView.regionThatFits(region), animated: true)
+        }
+        
+    }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.eventViewController.events.count
@@ -80,14 +121,10 @@ class EventMapViewController: UIViewController, CLLocationManagerDelegate, UICol
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let selectedEvent = self.eventViewController.events[indexPath.row]
-
-        // Send data to HomeViewController
-//        self.delegate?.sendSelectedEvent(event: selectedEvent)
-
-        // Back to HomeViewController
-//        self.navigationController?.popViewController(animated: true)
+        self.chooseButton.isHidden = false
+        self.selectedEvent = self.eventViewController.events[indexPath.row]
         collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+        self.zoomCoordinate()
     }
     
     

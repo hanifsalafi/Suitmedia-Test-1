@@ -14,6 +14,8 @@ struct Event {
     var image: String
     var description: String
     var date: String
+    var latitude: Float
+    var longitude: Float
 }
 
 protocol EventDelegate {
@@ -30,12 +32,12 @@ class EventViewController: UIViewController {
     var delegate: EventDelegate?
     
     public var events = [
-        Event(id: 1, name: "Meeting with Investor", image: "meeting", description: "Meeting with Investor", date: "20 May 2021"),
-        Event(id: 2, name: "Big Data Conference", image: "conference", description: "Big Data Conference", date: "23 May 2021"),
-        Event(id: 3, name: "Founder + Funder Networking", image: "networking", description: "Founder + Funder Networking", date: "26 May 2021"),
-        Event(id: 4, name: "Workshop: iOS Development", image: "workshop", description: "Workshop: iOS Development", date: "28 May 2021"),
-        Event(id: 5, name: "Startup Exhibition", image: "exhibition", description: "Startup Exhibition 2021", date: "8 June 2021"),
-        Event(id: 6, name: "Job Fair", image: "jobfair", description: "Bandung Job Fair 2021", date: "18 June 2021")
+        Event(id: 1, name: "Meeting with Investor", image: "meeting", description: "Meeting with Investor", date: "20 May 2021", latitude: -6.908746, longitude: 107.680556),
+        Event(id: 2, name: "Big Data Conference", image: "conference", description: "Big Data Conference", date: "23 May 2021", latitude: -6.904234, longitude: 107.661856),
+        Event(id: 3, name: "Founder + Funder Networking", image: "networking", description: "Founder + Funder Networking", date: "26 May 2021", latitude: -6.923537, longitude: 107.672430),
+        Event(id: 4, name: "Workshop: iOS Development", image: "workshop", description: "Workshop: iOS Development", date: "28 May 2021", latitude: -6.927825, longitude: 107.664418),
+        Event(id: 5, name: "Startup Exhibition", image: "exhibition", description: "Startup Exhibition 2021", date: "8 June 2021", latitude: -6.939099, longitude: 107.633704),
+        Event(id: 6, name: "Job Fair", image: "jobfair", description: "Bandung Job Fair 2021", date: "18 June 2021", latitude: -6.936580, longitude: 107.626326)
     ]
     
     override func viewDidLoad() {
