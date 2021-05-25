@@ -15,30 +15,24 @@ protocol GuestDelegate {
 class GuestViewController: UIViewController {
     
     @IBOutlet weak var guestCollectionView: UICollectionView!
+    
     var guests: [GuestViewModel] = [GuestViewModel]()
     var delegate: GuestDelegate?
+    var refreshControl: UIRefreshControl?
+    var loadingView: UIActivityIndicatorView?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        requestData()
         customView()
+        requestData()
     }
     
     // MARK: - Initial Data
     
     public func initData(delegate: GuestDelegate?){
        self.delegate = delegate
-    }
-    
-    func requestData(){
-        ServiceAPI.getGuests(completion: { (guests, message) in
-            DispatchQueue.main.async {
-                self.guests = guests ?? []
-                self.guestCollectionView.reloadData()
-            }
-        })
     }
     
     // MARK: - Custom View
@@ -65,10 +59,39 @@ class GuestViewController: UIViewController {
 
         self.navigationItem.setLeftBarButtonItems([leftBarButton], animated: false)
         
+//        refreshControl = UIRefreshControl()
+//        refreshControl?.addTarget(self, action: #selector(refreshTable), for: .valueChanged)
+//        if let refreshControl = refreshControl {
+//            self.guestCollectionView.addSubview(refreshControl)
+//        }
+        
+        loadingView = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.large)
+        loadingView?.color = UIColor.orange
+        loadingView?.center = CGPoint(x: self.guestCollectionView.bounds.size.width / 2, y:  self.guestCollectionView.bounds.size.height / 2)
+        self.guestCollectionView.backgroundView = loadingView
     }
     
     @objc func backView(){
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func refreshTable(){
+        
+    }
+    
+    // MARK: - Request Data
+    func requestData(){
+//        self.loadingView?.showActivityIndicator(view: self.guestCollectionView.backgroundView)
+        loadingView?.startAnimating()
+        ServiceAPI.getGuests(completion: { (guests, message) in
+            DispatchQueue.main.async {
+                if let guestData = guests {
+                    self.guests = guestData
+                    self.loadingView?.stopAnimating()
+                    self.guestCollectionView.reloadData()
+                }
+            }
+        })
     }
 
 }
