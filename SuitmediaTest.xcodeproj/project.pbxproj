@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		FA460D6D265CD8E7008AE754 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA460D6C265CD8E7008AE754 /* Utils.swift */; };
 		FA460D6F265CD92D008AE754 /* LoadingViewUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA460D6E265CD92D008AE754 /* LoadingViewUtil.swift */; };
+		FA460D75265D4754008AE754 /* EventListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA460D74265D4754008AE754 /* EventListViewController.swift */; };
+		FA460D79265D504A008AE754 /* EventMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA460D78265D504A008AE754 /* EventMapViewController.swift */; };
+		FA460D7F265D5A08008AE754 /* EventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA460D7E265D5A08008AE754 /* EventViewController.swift */; };
 		FA99060F265A2DAA003E9196 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA99060E265A2DAA003E9196 /* AppDelegate.swift */; };
 		FA990611265A2DAA003E9196 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA990610265A2DAA003E9196 /* SceneDelegate.swift */; };
 		FA990613265A2DAA003E9196 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA990612265A2DAA003E9196 /* ViewController.swift */; };
@@ -21,7 +24,6 @@
 		FA990647265A665C003E9196 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA990646265A665C003E9196 /* Extension.swift */; };
 		FA990649265A6D57003E9196 /* FormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA990648265A6D57003E9196 /* FormViewController.swift */; };
 		FA99064B265A7AF3003E9196 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA99064A265A7AF3003E9196 /* HomeViewController.swift */; };
-		FA99064E265AC711003E9196 /* EventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA99064D265AC710003E9196 /* EventViewController.swift */; };
 		FA990650265AC768003E9196 /* EventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA99064F265AC768003E9196 /* EventTableViewCell.swift */; };
 		FA990652265AE8D7003E9196 /* GuestCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA990651265AE8D7003E9196 /* GuestCollectionViewCell.swift */; };
 		FA990654265AE925003E9196 /* GuestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA990653265AE925003E9196 /* GuestViewController.swift */; };
@@ -51,6 +53,9 @@
 /* Begin PBXFileReference section */
 		FA460D6C265CD8E7008AE754 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		FA460D6E265CD92D008AE754 /* LoadingViewUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewUtil.swift; sourceTree = "<group>"; };
+		FA460D74265D4754008AE754 /* EventListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListViewController.swift; sourceTree = "<group>"; };
+		FA460D78265D504A008AE754 /* EventMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventMapViewController.swift; sourceTree = "<group>"; };
+		FA460D7E265D5A08008AE754 /* EventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewController.swift; sourceTree = "<group>"; };
 		FA99060B265A2DAA003E9196 /* SuitmediaTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SuitmediaTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA99060E265A2DAA003E9196 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FA990610265A2DAA003E9196 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -69,7 +74,6 @@
 		FA990646265A665C003E9196 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		FA990648265A6D57003E9196 /* FormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormViewController.swift; sourceTree = "<group>"; };
 		FA99064A265A7AF3003E9196 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		FA99064D265AC710003E9196 /* EventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewController.swift; sourceTree = "<group>"; };
 		FA99064F265AC768003E9196 /* EventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTableViewCell.swift; sourceTree = "<group>"; };
 		FA990651265AE8D7003E9196 /* GuestCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestCollectionViewCell.swift; sourceTree = "<group>"; };
 		FA990653265AE925003E9196 /* GuestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestViewController.swift; sourceTree = "<group>"; };
@@ -179,11 +183,11 @@
 		FA99063F265A5E25003E9196 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				FA990641265A5E44003E9196 /* Storyboard */,
 				FA460D69265CD865008AE754 /* Utils */,
 				FA99064C265AC6E0003E9196 /* Cell */,
 				FA990645265A663D003E9196 /* Extension */,
 				FA990642265A5E6C003E9196 /* Controller */,
-				FA990641265A5E44003E9196 /* Storyboard */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -210,8 +214,10 @@
 				FA990643265A5F19003E9196 /* WelcomeViewController.swift */,
 				FA990648265A6D57003E9196 /* FormViewController.swift */,
 				FA99064A265A7AF3003E9196 /* HomeViewController.swift */,
-				FA99064D265AC710003E9196 /* EventViewController.swift */,
+				FA460D74265D4754008AE754 /* EventListViewController.swift */,
 				FA990653265AE925003E9196 /* GuestViewController.swift */,
+				FA460D78265D504A008AE754 /* EventMapViewController.swift */,
+				FA460D7E265D5A08008AE754 /* EventViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -383,9 +389,11 @@
 				FA990644265A5F19003E9196 /* WelcomeViewController.swift in Sources */,
 				FA460D6D265CD8E7008AE754 /* Utils.swift in Sources */,
 				FA99060F265A2DAA003E9196 /* AppDelegate.swift in Sources */,
-				FA99064E265AC711003E9196 /* EventViewController.swift in Sources */,
+				FA460D79265D504A008AE754 /* EventMapViewController.swift in Sources */,
+				FA460D7F265D5A08008AE754 /* EventViewController.swift in Sources */,
 				FA990652265AE8D7003E9196 /* GuestCollectionViewCell.swift in Sources */,
 				FA990658265AEAE6003E9196 /* GuestViewModel.swift in Sources */,
+				FA460D75265D4754008AE754 /* EventListViewController.swift in Sources */,
 				FA990656265AEA80003E9196 /* GuestModel.swift in Sources */,
 				FA99064B265A7AF3003E9196 /* HomeViewController.swift in Sources */,
 				FA990611265A2DAA003E9196 /* SceneDelegate.swift in Sources */,

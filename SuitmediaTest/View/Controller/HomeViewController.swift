@@ -28,7 +28,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        customView()
+        setupView()
         initGesture()
     }
     
@@ -54,9 +54,9 @@ class HomeViewController: UIViewController {
         self.name = name
     }
     
-    // MARK: - Custom View
+    // MARK: - Setup View
     
-    func customView(){
+    func setupView(){
         self.nameLabel.text = self.name
         
         chooseEventButton.layer.cornerRadius = chooseEventButton.frame.height / 2
@@ -127,7 +127,7 @@ class HomeViewController: UIViewController {
 
 extension HomeViewController: EventDelegate, GuestDelegate {
     func sendSelectedEvent(event: Event) {
-        self.selectedEvent = event 
+        self.selectedEvent = event
         self.chooseEventButton.setTitle(event.name, for: .normal)
         self.selectedBtn = .event
     }

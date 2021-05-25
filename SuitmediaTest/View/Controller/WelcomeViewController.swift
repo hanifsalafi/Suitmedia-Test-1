@@ -24,7 +24,7 @@ class WelcomeViewController: FormViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        customView()
+        setupView()
         initGesture()
     }
     
@@ -38,9 +38,9 @@ class WelcomeViewController: FormViewController {
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
-    // MARK: - Custom View
+    // MARK: - Setup View
     
-    func customView(){
+    func setupView(){
         nameTextField.layer.cornerRadius = nameTextField.frame.height / 2
         palindromeTextField.layer.cornerRadius = palindromeTextField.frame.height / 2
         

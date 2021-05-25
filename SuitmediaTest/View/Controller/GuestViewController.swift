@@ -31,7 +31,7 @@ class GuestViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        customView()
+        setupView()
         requestData(page: 1, pagination: false)
     }
     
@@ -41,9 +41,9 @@ class GuestViewController: UIViewController {
        self.delegate = delegate
     }
     
-    // MARK: - Custom View
+    // MARK: - Setup View
     
-    func customView(){
+    func setupView(){
         
         // Change Navigation Bar Color
         UINavigationBar.appearance().barTintColor = .orange

@@ -1,29 +1,30 @@
 //
-//  EventViewController2.swift
+//  EventViewController.swift
 //  SuitmediaTest
 //
-//  Created by MacBook on 25/05/21.
+//  Created by MacBook on 24/05/21.
 //  Copyright © 2021 MacBook. All rights reserved.
 //
-
+import MapKit
 import UIKit
+import CoreLocation
 
-struct Event {
-    var id: Int
-    var name: String
-    var image: String
-    var description: String
-    var date: String
-}
-
-protocol EventDelegate {
-    func sendSelectedEvent(event: Event)
-}
+//struct Event {
+//    var id: Int
+//    var name: String
+//    var image: String
+//    var description: String
+//    var date: String
+//}
+//
+//protocol EventDelegate {
+//    func sendSelectedEvent(event: Event)
+//}
 
 class EventViewController: UIViewController {
     
-    var eventMapViewController: EventMapViewController?
-    var eventListViewController: EventListViewController?
+    let eventMapViewController = EventMapViewController()
+    let eventListViewController = EventListViewController()
     
     var mapIsActive = false
     
@@ -37,12 +38,11 @@ class EventViewController: UIViewController {
         Event(id: 5, name: "Startup Exhibition", image: "exhibition", description: "Startup Exhibition 2021", date: "8 June 2021"),
         Event(id: 6, name: "Job Fair", image: "jobfair", description: "Bandung Job Fair 2021", date: "18 June 2021")
     ]
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupView()
-        addChildVC()
     }
     
     // MARK: - Initial Data
@@ -51,8 +51,10 @@ class EventViewController: UIViewController {
         self.delegate = delegate
     }
     
+    // MARK: - Custom View
+    
     func setupView(){
-            
+        
         // Change Navigation Bar Color
         
         UINavigationBar.appearance().barTintColor = .orange
@@ -91,59 +93,43 @@ class EventViewController: UIViewController {
         
         self.navigationItem.setRightBarButtonItems([mapBarButton, searchBarButton], animated: false)
         
+        // Setup Container View Controller
         
+        addChild(eventListViewController)
+        addChild(eventMapViewController)
+        
+        self.view.addSubview(eventListViewController.view)
+        self.view.addSubview(eventMapViewController.view)
+        
+        eventListViewController.didMove(toParent: self)
+        eventMapViewController.didMove(toParent: self)
+        
+        eventListViewController.view.frame = self.view.bounds
+        eventMapViewController.view.frame = self.view.bounds
+        eventMapViewController.view.isHidden = true
     }
     
     @objc func backView(){
         self.navigationController?.popViewController(animated: true)
     }
-       
-   @objc func changeView(){
-       if mapIsActive {
-            self.eventListViewController?.view.isHidden = false
-            self.eventMapViewController?.view.isHidden = true
-
-           self.mapIsActive = false
-       } else {
-            self.eventListViewController?.view.isHidden = true
-            self.eventMapViewController?.view.isHidden = false
-
-           self.mapIsActive = true
-       }
-   }
-       
-   @objc func searchEvent(){
-       // Code
-   }
     
-    func addChildVC(){
-        // Setup Container View Controller
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-               
-       let eventListVC = storyboard.instantiateViewController(withIdentifier: "eventListViewController") as! EventListViewController
-       addChild(eventListVC)
-       
-       let eventMapVC = storyboard.instantiateViewController(withIdentifier: "eventMapViewController") as! EventMapViewController
-       addChild(eventMapVC)
-       
-       eventListVC.view.frame = self.view.bounds
-       eventMapVC.view.frame = self.view.bounds
+    @objc func changeView(){
+        if mapIsActive {
+            self.eventListViewController.view.isHidden = true
+            self.eventMapViewController.view.isHidden = false
+            
+            self.mapIsActive = false
+        } else {
+            self.eventListViewController.view.isHidden = false
+            self.eventMapViewController.view.isHidden = true
+            
+            self.mapIsActive = true
+        }
+    }
     
-       eventListVC.delegate = self.delegate
-       eventMapVC.delegate = self.delegate
-       
-       self.view.addSubview(eventListVC.view)
-       self.view.addSubview(eventMapVC.view)
-       
-       eventListVC.didMove(toParent: self)
-       eventMapVC.didMove(toParent: self)
-        
-       self.eventListViewController = eventListVC
-       self.eventMapViewController = eventMapVC
-        
-       self.eventMapViewController?.view.isHidden = true
-
+    @objc func searchEvent(){
+        // Code
     }
 
-
 }
+
