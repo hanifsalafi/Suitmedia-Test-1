@@ -100,7 +100,7 @@
                                                             <constraint firstAttribute="height" constant="50" id="bxc-t2-vC7"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                        <textInputTraits key="textInputTraits"/>
+                                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartQuotesType="no" textContentType="name"/>
                                                     </textField>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Type text palindrome" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vku-ca-hEr">
                                                         <rect key="frame" x="20" y="205" width="314" height="50"/>
@@ -731,13 +731,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="wg1-A0-27J">
-                                <rect key="frame" x="20" y="0.0" width="374" height="896"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="wg1-A0-27J">
+                                <rect key="frame" x="20" y="0.0" width="374" height="862"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="vYU-tg-4H7">
                                     <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="20"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="50" height="50"/>
                                     <inset key="sectionInset" minX="45" minY="45" maxX="45" maxY="45"/>
                                 </collectionViewFlowLayout>
                                 <cells>
@@ -793,8 +793,12 @@
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
-                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="kXj-d3-4W5">
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="" id="kXj-d3-4W5">
                                     <rect key="frame" x="0.0" y="0.0" width="374" height="20"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </collectionReusableView>
+                                <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="" id="VAg-EZ-yw8">
+                                    <rect key="frame" x="0.0" y="260" width="374" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </collectionReusableView>
                                 <connections>
@@ -802,12 +806,22 @@
                                     <outlet property="delegate" destination="eQP-cF-Osk" id="ZAt-1k-ZAA"/>
                                 </connections>
                             </collectionView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="sEk-LC-FkY">
+                                <rect key="frame" x="0.0" y="812" width="414" height="50"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="Vc9-L7-QkB"/>
+                                </constraints>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstAttribute="bottomMargin" secondItem="wg1-A0-27J" secondAttribute="bottom" id="2Jk-OO-xnH"/>
+                            <constraint firstItem="sEk-LC-FkY" firstAttribute="leading" secondItem="Jfb-qn-ilN" secondAttribute="leading" id="1Gf-pg-92B"/>
                             <constraint firstItem="wg1-A0-27J" firstAttribute="leading" secondItem="eOn-AI-nrb" secondAttribute="leadingMargin" id="HAP-0P-M0U"/>
+                            <constraint firstItem="Jfb-qn-ilN" firstAttribute="bottom" secondItem="sEk-LC-FkY" secondAttribute="bottom" id="Pb6-Ba-2fj"/>
                             <constraint firstAttribute="trailingMargin" secondItem="wg1-A0-27J" secondAttribute="trailing" id="VXn-bd-92o"/>
+                            <constraint firstItem="Jfb-qn-ilN" firstAttribute="bottom" secondItem="wg1-A0-27J" secondAttribute="bottom" id="hin-25-Dun"/>
+                            <constraint firstItem="Jfb-qn-ilN" firstAttribute="trailing" secondItem="sEk-LC-FkY" secondAttribute="trailing" id="iib-Pc-27g"/>
                             <constraint firstItem="wg1-A0-27J" firstAttribute="top" secondItem="eOn-AI-nrb" secondAttribute="topMargin" id="wai-Mb-xjv"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Jfb-qn-ilN"/>
@@ -816,12 +830,14 @@
                         <barButtonItem key="leftBarButtonItem" title="Back" id="OCU-MN-wxX"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="bottomIndicatorVIewConstraint" destination="Vc9-L7-QkB" id="WDF-9B-Swu"/>
+                        <outlet property="bottomIndicatorView" destination="sEk-LC-FkY" id="oex-l8-vn7"/>
                         <outlet property="guestCollectionView" destination="wg1-A0-27J" id="feO-tq-5bA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AKv-6D-Icn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2803" y="591"/>
+            <point key="canvasLocation" x="2802.898550724638" y="590.625"/>
         </scene>
     </scenes>
     <resources>

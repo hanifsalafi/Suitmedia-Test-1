@@ -104,8 +104,9 @@ class WelcomeViewController: FormViewController {
     }
     
     func checkPalindrome() -> Bool {
-        let word = palindromeTextField.text!
-        if word.lowercased() == String(word.lowercased().reversed()) {
+        var word = palindromeTextField.text!
+        word = word.lowercased().components(separatedBy: .whitespacesAndNewlines).joined()
+        if word == String(word.reversed()) {
             return true
         } else {
             return false

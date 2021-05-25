@@ -10,9 +10,15 @@ import Foundation
 
 class ServiceAPI {
     
-    public static func getGuests(completion: @escaping (_ guests: [GuestViewModel]?,_ errorMessage: String ) -> Void) {
-
-        let urlComp = NSURLComponents(string: "https://reqres.in/api/users/")!
+    var isPaginating = false
+    
+    public func getGuests(page: Int, per_page: Int, pagination: Bool, completion: @escaping (_ guests: [GuestViewModel]?,_ errorMessage: String ) -> Void) {
+        
+        if pagination {
+            self.isPaginating = true
+        }
+        
+        let urlComp = NSURLComponents(string: "https://reqres.in/api/users?page=\(page)&per_page=\(per_page)")!
 
         var urlRequest = URLRequest(url: urlComp.url!)
         urlRequest.httpMethod = "GET"
@@ -56,7 +62,6 @@ class ServiceAPI {
                             listGuest.append(guestViewModel)
                         }
                     }
-                    
                     completion(listGuest, "")
                 } catch {
                     print(error)
