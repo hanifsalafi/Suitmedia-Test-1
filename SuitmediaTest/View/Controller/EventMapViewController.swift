@@ -16,6 +16,7 @@ class EventMapViewController: UIViewController, CLLocationManagerDelegate, UICol
     @IBOutlet weak var chooseButton: UIButton!
     
     var eventViewController = EventViewController()
+    var events: [Event] = [Event]()
     var delegate: EventDelegate?
     var selectedEvent: Event?
     
@@ -80,7 +81,7 @@ class EventMapViewController: UIViewController, CLLocationManagerDelegate, UICol
     }
     
     func setupCoordinate(){
-        for event in self.eventViewController.events {
+        for event in self.events {
             let annotation = MKPointAnnotation()
             annotation.coordinate = CLLocationCoordinate2D(latitude: CLLocationDegrees(event.latitude), longitude: CLLocationDegrees(event.longitude))
             eventMapView.addAnnotation(annotation)
@@ -98,36 +99,24 @@ class EventMapViewController: UIViewController, CLLocationManagerDelegate, UICol
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.eventViewController.events.count
+        return self.events.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "eventCollection", for: indexPath) as! EventCollectionViewCell
 
-        let event = self.eventViewController.events[indexPath.row]
-        cell.eventImageView.image = UIImage(named: event.image)
-        cell.eventTitleLabel.text = event.name
-        cell.eventDescriptionLabel.text = event.description
-        cell.eventDateLabel.text = event.date
-
-        // Custom View Cell
-
-        cell.cellViewContainer.layer.cornerRadius = 15.0
-        cell.cellViewContainer.addShadow(offset: CGSize(width: 0, height: 3), radius: CGFloat(4), opacity: Float(1))
-
-        cell.eventImageView.roundCorners([.topLeft, .bottomLeft], radius: 15.0)
+        let event = self.events[indexPath.row]
+        cell.configure(title: event.name, desc: event.description, image: event.image, date: event.date)
 
         return cell
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.chooseButton.isHidden = false
-        self.selectedEvent = self.eventViewController.events[indexPath.row]
+        self.selectedEvent = self.events[indexPath.row]
         collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
         self.zoomCoordinate()
     }
-    
-    
     
 }
 

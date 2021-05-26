@@ -22,12 +22,16 @@ protocol EventDelegate {
     func sendSelectedEvent(event: Event)
 }
 
-class EventViewController: UIViewController {
+class EventViewController: UIViewController, UISearchBarDelegate {
     
     var eventMapViewController: EventMapViewController?
     var eventListViewController: EventListViewController?
     
-    var mapIsActive = false
+    var searchBar = UISearchBar()
+    var searchBarButtonItem: UIBarButtonItem?
+    var isSearchBarActive: Bool = false
+    
+    var isMapActive = false
     
     var delegate: EventDelegate?
     
@@ -40,9 +44,12 @@ class EventViewController: UIViewController {
         Event(id: 6, name: "Job Fair", image: "jobfair", description: "Bandung Job Fair 2021", date: "18 June 2021", latitude: -6.936580, longitude: 107.626326)
     ]
     
+    var filteredEvents: [Event] =  [Event]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.filteredEvents = self.events
         setupView()
         addChildVC()
     }
@@ -77,6 +84,14 @@ class EventViewController: UIViewController {
 
         self.navigationItem.setLeftBarButtonItems([leftBarButton], animated: false)
         
+        setupRightBarButton()
+        
+        searchBar.delegate = self
+        searchBar.searchBarStyle = UISearchBar.Style.minimal
+        searchBarButtonItem = navigationItem.rightBarButtonItem
+    }
+    
+    func setupRightBarButton(){
         let searchButton : UIButton = UIButton(frame: CGRect(x:0, y:0, width:20, height:20))
         searchButton.setTitleColor(UIColor.white, for: .normal)
         searchButton.contentMode = .left
@@ -87,13 +102,12 @@ class EventViewController: UIViewController {
         let mapButton : UIButton = UIButton(frame: CGRect(x:0, y:0, width:20, height:20))
         mapButton.setTitleColor(UIColor.white, for: .normal)
         mapButton.contentMode = .left
-        mapButton.setImage(UIImage(named :"ic_map_view"), for: .normal)
+        let mapButtonIcon = isMapActive ? "ic_list_view" : "ic_map_view"
+        mapButton.setImage(UIImage(named : mapButtonIcon), for: .normal)
         mapButton.addTarget(self, action: #selector(changeView), for: .touchDown)
         let mapBarButton: UIBarButtonItem = UIBarButtonItem(customView: mapButton)
         
         self.navigationItem.setRightBarButtonItems([mapBarButton, searchBarButton], animated: false)
-        
-        
     }
     
     @objc func backView(){
@@ -101,21 +115,27 @@ class EventViewController: UIViewController {
     }
        
    @objc func changeView(){
-       if mapIsActive {
+       if isMapActive {
             self.eventListViewController?.view.isHidden = false
             self.eventMapViewController?.view.isHidden = true
 
-           self.mapIsActive = false
+           self.isMapActive = false
        } else {
             self.eventListViewController?.view.isHidden = true
             self.eventMapViewController?.view.isHidden = false
 
-           self.mapIsActive = true
+           self.isMapActive = true
        }
+       setupRightBarButton()
    }
        
    @objc func searchEvent(){
        // Code
+        if !isSearchBarActive {
+            showSearchBar()
+        } else {
+            hideSearchBar()
+        }
    }
     
     func addChildVC(){
@@ -133,6 +153,9 @@ class EventViewController: UIViewController {
     
        eventListVC.delegate = self.delegate
        eventMapVC.delegate = self.delegate
+        
+       eventListVC.events = self.filteredEvents
+       eventMapVC.events = self.filteredEvents
        
        self.view.addSubview(eventListVC.view)
        self.view.addSubview(eventMapVC.view)
@@ -147,5 +170,41 @@ class EventViewController: UIViewController {
 
     }
 
+    func showSearchBar() {
+        self.searchBar.alpha = 0
+        navigationItem.titleView = searchBar
+        self.isSearchBarActive = true
+        UIView.animate(withDuration: 0.5, animations: {
+            self.searchBar.alpha = 1
+        }, completion: { finished in
+            self.searchBar.becomeFirstResponder()
+      })
+    }
 
+    func hideSearchBar() {
+        navigationItem.titleView = nil
+        self.isSearchBarActive = false
+        UIView.animate(withDuration: 0.3, animations: {
+        }, completion: { finished in
+           
+      })
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        filteredEvents = []
+        
+        if searchText == "" {
+            filteredEvents = events
+        } else {
+            for event in events {
+                if event.name.lowercased().contains(searchText.lowercased()){
+                    filteredEvents.append(event)
+                }
+            }
+        }
+        self.eventListViewController?.events = filteredEvents
+        self.eventMapViewController?.events = filteredEvents
+        self.eventListViewController?.eventTableView.reloadData()
+        self.eventMapViewController?.eventCollectionView.reloadData()
+    }
 }

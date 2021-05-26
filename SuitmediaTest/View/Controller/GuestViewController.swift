@@ -26,7 +26,7 @@ class GuestViewController: UIViewController {
     var loadingView: UIActivityIndicatorView?
     var pageCount: Int = 1
     var isScrollDown: Bool = false
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -119,7 +119,13 @@ class GuestViewController: UIViewController {
             }
         })
     }
-
+    
+    func checkPrimeId(id: Int) -> Bool{
+        guard id != 2 else { return true  }
+        guard id >= 2 else { return false }
+        guard id % 2 != 0 else { return false }
+        return !stride(from: 3, through: Int(sqrt(Double(id))), by: 2).contains { id % $0 == 0 }
+    }
 }
 
 extension GuestViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate {
@@ -132,12 +138,7 @@ extension GuestViewController: UICollectionViewDelegate, UICollectionViewDataSou
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "guest", for: indexPath) as! GuestCollectionViewCell
         
         let guest = self.guests[indexPath.row]
-        cell.guestImageView.downloaded(from: guest.getAvatar())
-        cell.guestNameLabel.text = guest.getFullName()
-        
-        // Custom View Cell
-        
-        cell.guestImageView.layer.cornerRadius = cell.guestImageView.frame.height / 2
+        cell.configure(name: guest.getFullName(), imageURL: guest.getAvatar())
         
         return cell
     }
@@ -148,8 +149,16 @@ extension GuestViewController: UICollectionViewDelegate, UICollectionViewDataSou
         // Send data to HomeViewController
         self.delegate?.sendSelectedGuest(guest: selectedGuest)
         
-        // Back to HomeViewController
-        self.navigationController?.popViewController(animated: true)
+        if self.checkPrimeId(id: selectedGuest.getId()){
+            self.showToast(message: "The Guest ID is PRIME", font: UIFont.boldSystemFont(ofSize: 14.0))
+        } else {
+            self.showToast(message: "The Guest ID is NOT PRIME", font: UIFont.boldSystemFont(ofSize: 14.0))
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2.0) {
+            // Back to HomeViewController
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

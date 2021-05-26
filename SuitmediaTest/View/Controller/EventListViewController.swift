@@ -13,6 +13,7 @@ class EventListViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var eventTableView: UITableView!
     
     var eventViewController = EventViewController()
+    var events: [Event] = [Event]()
     var delegate: EventDelegate?
 
     override func viewDidLoad() {
@@ -20,30 +21,20 @@ class EventListViewController: UIViewController, UITableViewDelegate, UITableVie
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.eventViewController.events.count
+        return self.events.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "eventListCell", for: indexPath) as! EventTableViewCell
 
-        let event = self.eventViewController.events[indexPath.row]
-        cell.eventImageView.image = UIImage(named: event.image)
-        cell.eventTitleLabel.text = event.name
-        cell.eventDescLabel.text = event.description
-        cell.eventDateLabel.text = event.date
-
-        // Custom View Cell
-
-        cell.cellViewContainer.layer.cornerRadius = 15.0
-        cell.cellViewContainer.addShadow(offset: CGSize(width: 0, height: 3), radius: CGFloat(4), opacity: Float(1))
-
-        cell.eventImageView.roundCorners([.topLeft, .bottomLeft], radius: 15.0)
+        let event = self.events[indexPath.row]
+        cell.configure(title: event.name, desc: event.description, image: event.image, date: event.date)
 
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedEvent = self.eventViewController.events[indexPath.row]
+        let selectedEvent = self.events[indexPath.row]
 
         // Send data to HomeViewController
         self.delegate?.sendSelectedEvent(event: selectedEvent)

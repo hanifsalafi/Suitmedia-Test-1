@@ -37,9 +37,9 @@ class WelcomeViewController: FormViewController {
         super.viewWillDisappear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
-    
+
     // MARK: - Setup View
-    
+
     func setupView(){
         nameTextField.layer.cornerRadius = nameTextField.frame.height / 2
         palindromeTextField.layer.cornerRadius = palindromeTextField.frame.height / 2
@@ -52,10 +52,13 @@ class WelcomeViewController: FormViewController {
         
         contentViewContainer.layer.cornerRadius = 10.0
         contentViewContainer.addShadow(offset: CGSize(width: 0, height: 3), radius: CGFloat(4), opacity: Float(1))
+        
+        self.navigationController?.navigationBar.tintColor = UIColor(hue: 1, saturation: 0, brightness: 1, alpha: 1)
+        self.navigationController?.navigationBar.backgroundColor = UIColor.white.withAlphaComponent(0)
     }
-    
+
     // MARK: - Init Gesture
-    
+
     func initGesture(){
         let viewRecognizer = UITapGestureRecognizer()
         viewRecognizer.addTarget(self, action: #selector(didTapView))
@@ -69,13 +72,13 @@ class WelcomeViewController: FormViewController {
         checkButtonRecognizer.addTarget(self, action: #selector(doCheck))
         checkButton.addGestureRecognizer(checkButtonRecognizer)
     }
-    
+
     @objc func didTapView(){
         self.view.endEditing(true)
     }
-    
+
     // MARK: Do Function
-    
+
     @objc func doNext(){
         if palindromeTextField.text != "" {
             if checkPalindrome() {
@@ -90,7 +93,7 @@ class WelcomeViewController: FormViewController {
             showAlert(view: self, title: "", message: "Please enter a palindrome word first.")
         }
     }
-    
+
     @objc func doCheck(){
         if palindromeTextField.text != "" {
             if checkPalindrome() {
@@ -102,7 +105,7 @@ class WelcomeViewController: FormViewController {
             showAlert(view: self, title: "", message: "Please enter a word palindrome first.")
         }
     }
-    
+
     func checkPalindrome() -> Bool {
         var word = palindromeTextField.text!
         word = word.lowercased().components(separatedBy: .whitespacesAndNewlines).joined()
@@ -112,7 +115,7 @@ class WelcomeViewController: FormViewController {
             return false
         }
     }
-    
+
     func showAlert(view: UIViewController, title: String, message: String){
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
@@ -122,8 +125,4 @@ class WelcomeViewController: FormViewController {
         view.present(alert, animated: true, completion: nil)
     }
     
-    
-    
-    
-
 }
