@@ -77,6 +77,8 @@ class HomeViewController: UIViewController {
         chooseGuestRecognizer.addTarget(self, action: #selector(chooseGuest))
         self.chooseGuestButton.addGestureRecognizer(chooseGuestRecognizer)
     }
+    
+    // MARK: - Button Function
 
     @objc func chooseEvent(){
         let vc = storyboard?.instantiateViewController(identifier: "event") as! EventViewController
@@ -109,6 +111,8 @@ class HomeViewController: UIViewController {
         self.present(showAlert, animated: true, completion: nil)
     }
     
+    // MARK: - Check The Guest ID
+    
     func checkGuestPhone(){
         if let guestId = self.selectedGuest?.getId() {
             if (guestId % 2 == 0 && guestId % 3 != 0){
@@ -126,13 +130,18 @@ class HomeViewController: UIViewController {
 }
 
 extension HomeViewController: EventDelegate, GuestDelegate {
+    
     func sendSelectedEvent(event: Event) {
+        
+        // Receive data from EventViewController
         self.selectedEvent = event
         self.chooseEventButton.setTitle(event.name, for: .normal)
         self.selectedBtn = .event
     }
     
     func sendSelectedGuest(guest: GuestViewModel) {
+        
+        // Receive data from GuestViewController
         self.selectedGuest = guest
         self.chooseGuestButton.setTitle(guest.getFullName(), for: .normal)
         self.selectedBtn = .guest

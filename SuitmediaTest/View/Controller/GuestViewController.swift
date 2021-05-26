@@ -54,8 +54,7 @@ class GuestViewController: UIViewController {
         ]
         UINavigationBar.appearance().isTranslucent = false
         
-        
-        // Add Left and Right Navigation Bar Button
+        // Add Left Navigation Bar Button
         let backButton : UIButton = UIButton(frame: CGRect(x:0, y:0, width:20, height:20))
         backButton.setTitleColor(UIColor.white, for: .normal)
         backButton.contentMode = .left
@@ -65,20 +64,25 @@ class GuestViewController: UIViewController {
 
         self.navigationItem.setLeftBarButtonItems([leftBarButton], animated: false)
         
+        // Add Refresh Control to Refresh Data
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(refreshTable), for: .valueChanged)
         if let refreshControl = refreshControl {
             self.guestCollectionView.addSubview(refreshControl)
         }
         
+        // Add Loading Spinner
         loadingView = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.large)
         loadingView?.color = UIColor.orange
         loadingView?.center = CGPoint(x: self.guestCollectionView.bounds.size.width / 2, y:  self.guestCollectionView.bounds.size.height / 2)
         self.guestCollectionView.backgroundView = loadingView
         loadingView?.startAnimating()
         
+        // Setup Infinite Scroll
         setupInfiniteScroll()
     }
+    
+    // MARK: - Button Function
     
     func setupInfiniteScroll(){
         self.bottomIndicatorView.stopAnimating()
@@ -94,7 +98,10 @@ class GuestViewController: UIViewController {
     }
     
     // MARK: - Request Data
+    
     func requestData(page: Int, pagination: Bool){
+        
+        // Request Data Guests from API
         serviceAPI.getGuests(page: page, per_page: 4, pagination: pagination, completion: { (guests, message) in
             DispatchQueue.main.async {
                 if let guestData = guests {
@@ -120,6 +127,8 @@ class GuestViewController: UIViewController {
         })
     }
     
+    // MARK: - Function to Check Prime ID
+    
     func checkPrimeId(id: Int) -> Bool{
         guard id != 2 else { return true  }
         guard id >= 2 else { return false }
@@ -130,6 +139,8 @@ class GuestViewController: UIViewController {
 
 extension GuestViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate {
     
+    // MARK: Collection View Data
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.guests.count
     }
@@ -137,6 +148,7 @@ extension GuestViewController: UICollectionViewDelegate, UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "guest", for: indexPath) as! GuestCollectionViewCell
         
+        // Configure Cell Data
         let guest = self.guests[indexPath.row]
         cell.configure(name: guest.getFullName(), imageURL: guest.getAvatar())
         
@@ -149,6 +161,7 @@ extension GuestViewController: UICollectionViewDelegate, UICollectionViewDataSou
         // Send data to HomeViewController
         self.delegate?.sendSelectedGuest(guest: selectedGuest)
         
+        // Check the ID is Prime or Not
         if self.checkPrimeId(id: selectedGuest.getId()){
             self.showToast(message: "The Guest ID is PRIME", font: UIFont.boldSystemFont(ofSize: 14.0))
         } else {
@@ -161,10 +174,11 @@ extension GuestViewController: UICollectionViewDelegate, UICollectionViewDataSou
         }
     }
     
+    // MARK: - Function to Detect Infinite Scroll
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let position =  scrollView.contentOffset.y
         let limit = (self.guestCollectionView.contentSize.height / CGFloat(self.pageCount+2))-100
-        // print("scroll : \(position) | batas : \(limit)")
         if limit > 0 && position > limit && guestCollectionView.isDragging {
             self.bottomIndicatorView.startAnimating()
             self.bottomIndicatorView.isHidden = false

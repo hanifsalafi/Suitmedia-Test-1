@@ -77,7 +77,7 @@ class WelcomeViewController: FormViewController {
         self.view.endEditing(true)
     }
 
-    // MARK: Do Function
+    // MARK: - Do Function
 
     @objc func doNext(){
         if palindromeTextField.text != "" {
@@ -105,6 +105,8 @@ class WelcomeViewController: FormViewController {
             showAlert(view: self, title: "", message: "Please enter a word palindrome first.")
         }
     }
+    
+    // MARK: - Palindrome Function
 
     func checkPalindrome() -> Bool {
         var word = palindromeTextField.text!

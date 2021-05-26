@@ -29,6 +29,8 @@ class EventMapViewController: UIViewController, CLLocationManagerDelegate, UICol
         setupMapView()
     }
     
+    // MARK: - Setup View
+    
     func setupView(){
         let chooseButtonRecognizer = UITapGestureRecognizer()
         chooseButtonRecognizer.addTarget(self, action: #selector(chooseEvent))
@@ -46,6 +48,8 @@ class EventMapViewController: UIViewController, CLLocationManagerDelegate, UICol
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
     }
+    
+    // MARK: - Button Function
     
     @objc func chooseEvent(){
         if let selectedEvent = selectedEvent {
@@ -69,6 +73,8 @@ class EventMapViewController: UIViewController, CLLocationManagerDelegate, UICol
     }
     
     func render(_ location: CLLocation){
+        
+        // Setup Coordinate User
         let coordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
         let span = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
         let region = MKCoordinateRegion(center: coordinate, span: span)
@@ -81,6 +87,8 @@ class EventMapViewController: UIViewController, CLLocationManagerDelegate, UICol
     }
     
     func setupCoordinate(){
+        
+        // Setup Coordinate for Each Data
         for event in self.events {
             let annotation = MKPointAnnotation()
             annotation.coordinate = CLLocationCoordinate2D(latitude: CLLocationDegrees(event.latitude), longitude: CLLocationDegrees(event.longitude))
@@ -89,6 +97,8 @@ class EventMapViewController: UIViewController, CLLocationManagerDelegate, UICol
     }
     
     func zoomCoordinate(){
+        
+        // When the event has selected, the maps will zoom to the coordinates of event
         if let selectedEvent = selectedEvent {
             var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: CLLocationDegrees(selectedEvent.latitude), longitude: CLLocationDegrees(selectedEvent.longitude)), latitudinalMeters: CLLocationDistance(exactly: 5000)!, longitudinalMeters: CLLocationDistance(exactly: 5000)!)
             region.span.latitudeDelta = 0.001
@@ -97,14 +107,17 @@ class EventMapViewController: UIViewController, CLLocationManagerDelegate, UICol
         }
         
     }
-
+    
+    // MARK: - Collection View Data
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.events.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "eventCollection", for: indexPath) as! EventCollectionViewCell
-
+        
+        // Configure Cell Data
         let event = self.events[indexPath.row]
         cell.configure(title: event.name, desc: event.description, image: event.image, date: event.date)
 

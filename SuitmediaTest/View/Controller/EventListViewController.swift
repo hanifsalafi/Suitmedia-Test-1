@@ -20,6 +20,8 @@ class EventListViewController: UIViewController, UITableViewDelegate, UITableVie
         super.viewDidLoad()
     }
 
+    // MARK: - Event Table View
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.events.count
     }
@@ -27,6 +29,7 @@ class EventListViewController: UIViewController, UITableViewDelegate, UITableVie
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "eventListCell", for: indexPath) as! EventTableViewCell
 
+        // Configure Cell Data
         let event = self.events[indexPath.row]
         cell.configure(title: event.name, desc: event.description, image: event.image, date: event.date)
 

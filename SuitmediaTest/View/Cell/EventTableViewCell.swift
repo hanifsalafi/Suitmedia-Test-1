@@ -29,13 +29,14 @@ class EventTableViewCell: UITableViewCell {
     }
     
     func configure(title: String, desc: String, image: String, date: String){
+        
+        // Assign Data
         eventImageView.image = UIImage(named: image)
         eventTitleLabel.text = title
         eventDescLabel.text = desc
         eventDateLabel.text = date
 
         // Custom View Cell
-
         cellViewContainer.layer.cornerRadius = 15.0
         cellViewContainer.addShadow(offset: CGSize(width: 0, height: 3), radius: CGFloat(4), opacity: Float(1))
 

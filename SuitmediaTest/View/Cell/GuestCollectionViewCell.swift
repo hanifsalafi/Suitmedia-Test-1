@@ -16,11 +16,16 @@ class GuestCollectionViewCell: UICollectionViewCell {
     
     func configure(name: String, imageURL: String){
         
+        // Assign Data
         guestNameLabel.text = name
+        
         // Custom View Cell
         guestImageView.layer.cornerRadius = guestImageView.frame.height / 2
         
+        // Load Image
         self.loadImage(urlString: imageURL) { (urlString, image) in
+            
+            // Caching image data
             self.cacheImage(urlString: urlString, img: image!)
             
             self.guestImageView.image = image
@@ -29,6 +34,7 @@ class GuestCollectionViewCell: UICollectionViewCell {
 
     func loadImage(urlString: String, completion: @escaping (String, UIImage?)->Void) {
         
+        // Load image from cache memory
         if let dict = UserDefaults.standard.object(forKey: "ImageCache") as? [String:String] {
             if let path = dict[urlString] {
                 if let data = try? Data(contentsOf: URL(fileURLWithPath: path)) {
@@ -55,6 +61,8 @@ class GuestCollectionViewCell: UICollectionViewCell {
     }
     
     func cacheImage(urlString: String, img: UIImage){
+        
+        // Caching process
         let path = NSTemporaryDirectory().appending(UUID().uuidString)
         let url = URL(fileURLWithPath: path)
         

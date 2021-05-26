@@ -60,6 +60,8 @@ class EventViewController: UIViewController, UISearchBarDelegate {
         self.delegate = delegate
     }
     
+    // MARK: - Setup View
+    
     func setupView(){
             
         // Change Navigation Bar Color
@@ -72,9 +74,7 @@ class EventViewController: UIViewController, UISearchBarDelegate {
         ]
         UINavigationBar.appearance().isTranslucent = false
         
-        
-        // Add Left and Right Navigation Bar Button
-        
+        // Add Left avigation Bar Button
         let backButton : UIButton = UIButton(frame: CGRect(x:0, y:0, width:20, height:20))
         backButton.setTitleColor(UIColor.white, for: .normal)
         backButton.contentMode = .left
@@ -84,12 +84,16 @@ class EventViewController: UIViewController, UISearchBarDelegate {
 
         self.navigationItem.setLeftBarButtonItems([leftBarButton], animated: false)
         
+        // Add Right avigation Bar Button
         setupRightBarButton()
         
+        // Add Search Bar View
         searchBar.delegate = self
         searchBar.searchBarStyle = UISearchBar.Style.minimal
         searchBarButtonItem = navigationItem.rightBarButtonItem
     }
+    
+    // MARK: - Setup Bar Button
     
     func setupRightBarButton(){
         let searchButton : UIButton = UIButton(frame: CGRect(x:0, y:0, width:20, height:20))
@@ -110,11 +114,13 @@ class EventViewController: UIViewController, UISearchBarDelegate {
         self.navigationItem.setRightBarButtonItems([mapBarButton, searchBarButton], animated: false)
     }
     
+    // MARK: - Button Function
+    
     @objc func backView(){
         self.navigationController?.popViewController(animated: true)
     }
        
-   @objc func changeView(){
+    @objc func changeView(){
        if isMapActive {
             self.eventListViewController?.view.isHidden = false
             self.eventMapViewController?.view.isHidden = true
@@ -127,20 +133,20 @@ class EventViewController: UIViewController, UISearchBarDelegate {
            self.isMapActive = true
        }
        setupRightBarButton()
-   }
+    }
        
-   @objc func searchEvent(){
-       // Code
+    @objc func searchEvent(){
         if !isSearchBarActive {
             showSearchBar()
         } else {
             hideSearchBar()
         }
-   }
+    }
+    
+    // MARK: - Setup Container View Controller
     
     func addChildVC(){
-        // Setup Container View Controller
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+       let storyboard = UIStoryboard(name: "Main", bundle: nil)
                
        let eventListVC = storyboard.instantiateViewController(withIdentifier: "eventListViewController") as! EventListViewController
        addChild(eventListVC)
@@ -167,10 +173,13 @@ class EventViewController: UIViewController, UISearchBarDelegate {
        self.eventMapViewController = eventMapVC
         
        self.eventMapViewController?.view.isHidden = true
-
     }
-
+    
+    // MARK: - Search Bar Function
+    
     func showSearchBar() {
+        
+        // Show the Search Bar
         self.searchBar.alpha = 0
         navigationItem.titleView = searchBar
         self.isSearchBarActive = true
@@ -182,15 +191,18 @@ class EventViewController: UIViewController, UISearchBarDelegate {
     }
 
     func hideSearchBar() {
+        
+        // Hide the Search Bar
         navigationItem.titleView = nil
         self.isSearchBarActive = false
         UIView.animate(withDuration: 0.3, animations: {
-        }, completion: { finished in
-           
-      })
+            }, completion: { finished in
+        })
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+         
+        // Filtering data from the input text
         filteredEvents = []
         
         if searchText == "" {
@@ -202,6 +214,8 @@ class EventViewController: UIViewController, UISearchBarDelegate {
                 }
             }
         }
+        
+        // Send filtered data to Event Table and Collection
         self.eventListViewController?.events = filteredEvents
         self.eventMapViewController?.events = filteredEvents
         self.eventListViewController?.eventTableView.reloadData()
